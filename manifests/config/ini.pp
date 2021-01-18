@@ -31,13 +31,10 @@
 #
 # Anton Baranov <abaranov@linuxfoundation.org>
 define cobbler::config::ini (
-  $ensure,
-  $config_file,
-  $options
+  Enum['present','absent'] $ensure,
+  Stdlib::Compat::Absolute_Path $config_file,
+  Stdlib::Compat::Hash $options
 ) {
-  validate_absolute_path($config_file)
-  validate_hash($options)
-  validate_re($ensure, ['^present', '^absent'])
 
   File {
     mode  => '0644',

@@ -63,29 +63,13 @@
 #
 # Anton Baranov <abaranov@linuxfoundation.org>
 class cobbler::config(
-  $ensure,
-  $cobbler_config,
-  $cobbler_modules_config,
-  $config_path,
-  $config_file,
-  $config_modules,
+  Enum['present','absent'] $ensure,
+  Stdlib::Compat::Hash $cobbler_config,
+  Stdlib::Compat::Hash $cobbler_modules_config,
+  Stdlib::Compat::Absolute_Path $config_path,
+  String $config_file,
+  String $config_modules,
 ){
-  # Validation
-  validate_absolute_path(
-    $config_path,
-  )
-  validate_hash(
-    $cobbler_config,
-    $cobbler_modules_config,
-  )
-  validate_re($ensure, ['^present$','^absent$'])
-
-  validate_string(
-    $config_file,
-    $config_modules
-  )
-
-
   File {
     owner   => 'root',
     group   => 'root',
